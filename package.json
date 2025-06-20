@@ -1,0 +1,47 @@
+{
+  "name": "competition-platform-server",
+  "version": "1.0.0",
+  "description": "Server for the EOCS Competition Platform",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "cross-env ENABLE_DEV_FEATURES=true nodemon src/server.js",
+    "build": "npm install",
+    "vercel-build": "npm install",
+    "seed:admin": "node src/scripts/seedAdmin.js",
+    "init-db": "node src/scripts/initDb.js",
+    "init-questions": "node src/scripts/initQuestions.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/node": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.11",
+    "redis": "^4.6.13",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
