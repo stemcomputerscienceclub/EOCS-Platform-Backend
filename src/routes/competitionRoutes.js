@@ -181,9 +181,8 @@ router.get('/progress', authenticateJWT, async (req, res) => {
     });
 
     if (completedParticipation) {
-      return res.status(403).json({ 
-        message: 'You have already completed the competition. Multiple attempts are not allowed.',
-        completed: true,
+      return res.json({ 
+        status: 'completed',
         participation: completedParticipation
       });
     }
@@ -195,10 +194,10 @@ router.get('/progress', authenticateJWT, async (req, res) => {
     });
 
     if (!participation) {
-      return res.status(404).json({ message: 'No active competition found' });
+      return res.json({ status: 'not_started' });
     }
     
-    // Calculate remaining time using the same logic as /start endpoint
+    // Calculate remaining time
     const now = new Date();
     const endTime = participation.endTime || new Date(participation.startTime.getTime() + competitionLength * 1000);
     const timeRemaining = Math.max(0, Math.floor((endTime - now) / 1000));
@@ -206,34 +205,12 @@ router.get('/progress', authenticateJWT, async (req, res) => {
     // Only return timeRemaining of 0 if the competition has actually ended
     const effectiveTimeRemaining = now >= endTime ? 0 : timeRemaining;
 
-    // Map user answers to questions
-    const userAnswers = participation.answers || [];
-    const answersMap = userAnswers.reduce((acc, ans) => {
-      acc[ans.question] = ans.answer;
-      return acc;
-    }, {});
-
-    // Create full question objects with user answers
-    const questions = sampleQuestions.map(q => {
-      const userAnswer = answersMap[q._id] || '';
-      return {
-        _id: q._id,
-        text: q.text,
-        type: q.type,
-        options: q.type === 'mcq' ? q.options : undefined,
-        language: q.language,
-        starterCode: q.starterCode,
-        points: q.points,
-        testCases: q.testCases ? q.testCases.map(tc => ({ input: tc.input })) : undefined,
-        answer: userAnswer
-      };
-    });
-    
     return res.json({
+      status: 'active',
       startTime: participation.startTime,
       endTime: endTime,
       timeRemaining: effectiveTimeRemaining,
-      questions: questions
+      answers: participation.answers || []
     });
   } catch (error) {
     console.error('Error getting competition progress:', error);

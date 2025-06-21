@@ -36,13 +36,13 @@ export const sampleQuestions = [
   {
     _id: 'q6',
     text: 'Write the JavaScript method that adds an element to the end of an array:',
-    type: 'text',
+    type: 'code',
     points: 10
   },
   {
     _id: 'q8',
     text: 'In a binary tree, a node that has no children is called a:',
-    type: 'text',
+    type: 'code',
     correctAnswer: 'leaf node',
     points: 10
   },
