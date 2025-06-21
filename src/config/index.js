@@ -5,10 +5,7 @@ dotenv.config();
 
 const requiredEnvVars = [
   'JWT_SECRET',
-  'MONGODB_URI',
-  'COMPETITION_START_TIME',
-  'COMPETITION_ENTRANCE_TIME',
-  'COMPETITION_LENGTH'
+  'MONGODB_URI'
 ];
 
 // Validate required environment variables
@@ -28,21 +25,15 @@ export const config = {
   jwtCookieExpire: parseInt(process.env.JWT_COOKIE_EXPIRE, 10) || 24,
   clientUrl: process.env.CLIENT_URL || 'http://localhost:3000',
   competition: {
-    startTime: new Date(process.env.COMPETITION_START_TIME),
-    entranceTime: parseInt(process.env.COMPETITION_ENTRANCE_TIME, 10),
-    length: parseInt(process.env.COMPETITION_LENGTH, 10),
+    startTime: process.env.COMPETITION_START_TIME ? new Date(process.env.COMPETITION_START_TIME) : new Date(),
+    entranceTime: parseInt(process.env.COMPETITION_ENTRANCE_TIME || '1800', 10),
+    length: parseInt(process.env.COMPETITION_LENGTH || '300', 10),
     get entranceDeadline() {
       return new Date(this.startTime.getTime() + this.entranceTime * 1000);
     },
     get endTime() {
       return new Date(this.startTime.getTime() + this.length * 1000);
     }
-  },
-  cors: {
-    origin: process.env.NODE_ENV === 'production' 
-      ? [process.env.CLIENT_URL].filter(Boolean)
-      : ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5173'],
-    credentials: true
   }
 };
 

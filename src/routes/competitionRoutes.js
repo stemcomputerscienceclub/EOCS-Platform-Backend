@@ -31,7 +31,7 @@ router.get('/config', authenticateJWT, async (req, res) => {
     const entranceDeadline = new Date(startTime.getTime() + entranceTimeSeconds * 1000);
     
     // Calculate competition length from environment variable or default
-    const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '7200', 10); // Default: 2 hours
+    const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10); // Default: 5 minutes
     
     // Calculate absolute end time
     const absoluteEndTime = new Date(startTime.getTime() + competitionLength * 1000);
@@ -361,6 +361,7 @@ router.post('/log-activity', authenticateJWT, async (req, res) => {
 router.get('/results', authenticateJWT, async (req, res) => {
   try {
     const userId = req.user.id;
+    const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
     // Find active or completed participation
     const participation = await Participation.findOne({
@@ -436,7 +437,7 @@ router.get('/results', authenticateJWT, async (req, res) => {
       userAnswers: results,
       answeredQuestions: answeredCount,
       startTime: participation.startTime,
-      endTime: participation.endTime || new Date(participation.startTime.getTime() + 7200 * 1000),
+      endTime: participation.endTime || new Date(participation.startTime.getTime() + competitionLength * 1000),
       submissionTime: participation.updatedAt || new Date(),
       status: participation.status,
       timeSpent: timeSpent

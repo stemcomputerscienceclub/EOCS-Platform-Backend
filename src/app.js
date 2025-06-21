@@ -1,31 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const routes = require('./routes');
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import routes from './routes';
+import { config } from './config/index.js';
 
 const app = express();
 
-// CORS configuration for different environments
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://competition-platform.vercel.app', // Add your Vercel frontend domain
-  process.env.NEXT_PUBLIC_FRONTEND_URL, // Flexible configuration through env
-];
-
+// Allow all requests
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+  origin: true, // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  credentials: true
 }));
 
 // Handle preflight requests
@@ -44,4 +30,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-module.exports = app; 
+export default app; 
