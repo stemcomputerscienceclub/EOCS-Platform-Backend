@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build": "echo 'No build step needed'",
+    "build": "npm install",
     "test": "echo 'No test specified' && exit 0",
     "vercel-build": "npm install",
     "seed:admin": "node src/scripts/seedAdmin.js",
