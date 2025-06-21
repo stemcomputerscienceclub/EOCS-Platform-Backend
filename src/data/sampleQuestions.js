@@ -101,7 +101,7 @@ export const sampleQuestions = [
     _id: 'chem_m1',
     text: 'While modeling a methane molecule (CH$_{4}$), a computational scientist noticed it formed a symmetrical shape. According to Valence Shell Electron Pair Repulsion (VSEPR) theory What is the shape of methane molecule?',
     type: 'mcq',
-    image: 'https://example.com/methane-shape.png',
+    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/8672bccfcdcd58328ce4a98aa9f6a3c82aa80972_whatsapp_image_2025-06-21_at_16.37.13_ea989794.jpg',
     options: [
       'Linear',
       'Trigonal planar',
@@ -195,7 +195,7 @@ export const sampleQuestions = [
     _id: 'bio_e1',
     text: 'In a computational genetic analysis of a family\'s inheritance pattern (in the Figure), the observed trait distribution across generations suggests which of the following is the most likely mode of inheritance?',
     type: 'mcq',
-    image: 'https://example.com/genetic-inheritance.png',
+    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/51f63be0f1cab4ab869c58caf735b67b9274e448_picture1.png',
     options: [
       'Images of the DNA',
       'Protein shapes',
@@ -302,7 +302,7 @@ export const sampleQuestions = [
     _id: 'cs_m2',
     text: 'The loss plateaus after epoch~4. What is the safest first reaction?',
     type: 'mcq',
-    image: 'https://example.com/loss-plateau.png',
+    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/b05ad90b6c6f5e63922487e1233ac324f4bd9027_loss_plateau-removebg-preview__1_.png',
     options: [
       'Add layers',
       'Raise LR 10×',
@@ -316,7 +316,7 @@ export const sampleQuestions = [
     _id: 'cs_a1',
     text: 'Problem Title: Monte Carlo Quarter Circle Area Estimation\n\nDescription: In computational science, Monte Carlo methods are used to estimate areas by random sampling. You are tasked with estimating the area of a quarter circle.\n\nConsider a square with corners at (0,0), (1,0), (0,1), and (1,1). Inscribed within this square is a quarter circle centered at (0,0) with radius 1.\n\nInput:\nLine 1: An integer N (1 ≤ N ≤ 10000), the number of random points.\nNext N lines: Two floating-point numbers x_i, y_i (0.0 ≤ x_i, y_i ≤ 1.0), representing the coordinates of each point.\n\nOutput:\nA single floating-point number, the estimated area of the quarter circle, rounded to 6 decimal places.',
     type: 'code',
-    image: 'https://example.com/monte-carlo-circle.png',
+    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/30453a7d76010c326a90656debbf2e8b1017e75b_whatsapp_image_2025-06-21_at_16.37.33_ee50636a.jpg',
     points: 3
   }
 ]; 
