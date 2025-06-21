@@ -7,19 +7,11 @@ import { config } from './config/index.js';
 const app = express();
 
 // Get allowed origins from environment or use defaults
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:5173').split(',');
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:5173,https://eocs-platform-backend.onrender.com,https://eocs-platform-frontend.vercel.app').split(',');
 
 // Configure CORS
 app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      return callback(new Error('The CORS policy for this site does not allow access from the specified Origin.'), false);
-    }
-    return callback(null, true);
-  },
+  origin: true, // Allow all origins for now
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true,
@@ -33,6 +25,11 @@ app.options('*', cors());
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
   next();
+});
+
+// Add a health check route
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
 });
 
 app.use(express.json());
