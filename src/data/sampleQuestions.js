@@ -4,7 +4,6 @@ export const sampleQuestions = [
     text: 'What is the time complexity of binary search?',
     type: 'mcq',
     options: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)', 'O(n²)'],
-    correctAnswer: 'O(log n)',
     points: 10
   },
   {
@@ -12,7 +11,6 @@ export const sampleQuestions = [
     text: 'Which sorting algorithm has the best average-case time complexity?',
     type: 'mcq',
     options: ['Bubble Sort', 'Insertion Sort', 'Quick Sort', 'Selection Sort', 'Merge Sort'],
-    correctAnswer: 'Quick Sort',
     points: 10
   },
   {
@@ -20,7 +18,6 @@ export const sampleQuestions = [
     text: 'What is the space complexity of depth-first search (DFS) for a graph with V vertices and E edges?',
     type: 'mcq',
     options: ['O(1)', 'O(V)', 'O(E)', 'O(V + E)', 'O(V * E)'],
-    correctAnswer: 'O(V)',
     points: 10
   },
   {
@@ -28,28 +25,18 @@ export const sampleQuestions = [
     text: 'Which data structure would be most efficient for implementing a priority queue?',
     type: 'mcq',
     options: ['Array', 'Linked List', 'Heap', 'Stack', 'Hash Table'],
-    correctAnswer: 'Heap',
     points: 10
   },
   {
     _id: 'q5',
     text: 'In Big O notation, the time complexity O(1) is also known as:',
-    type: 'text',
-    correctAnswer: 'constant time',
+    type: 'code',
     points: 10
   },
   {
     _id: 'q6',
-    text: 'What is the primary purpose of a hash function in a hash table?',
-    type: 'text',
-    correctAnswer: 'convert keys into array indices',
-    points: 10
-  },
-  {
-    _id: 'q7',
     text: 'Write the JavaScript method that adds an element to the end of an array:',
     type: 'text',
-    correctAnswer: 'push',
     points: 10
   },
   {
