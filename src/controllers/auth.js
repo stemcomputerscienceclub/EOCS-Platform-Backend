@@ -41,18 +41,19 @@ export const register = async (req, res, next) => {
 // @access  Public
 export const login = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
+    const identifier = username || email;
 
     // Check if username/email and password are provided
-    if (!username || !password) {
+    if (!identifier || !password) {
       return next(new ErrorResponse('Please provide username/email and password', 400));
     }
 
     // Check if user exists by username or email
     const user = await User.findOne({
       $or: [
-        { username: username },
-        { email: username.toLowerCase() }
+        { username: identifier },
+        { email: identifier.toLowerCase() }
       ]
     }).select('+password');
 

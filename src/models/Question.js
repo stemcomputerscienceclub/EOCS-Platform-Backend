@@ -51,9 +51,8 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 // Update the updatedAt field on save
-QuestionSchema.pre('save', function(next) {
+QuestionSchema.pre('save', function() {
   this.updatedAt = Date.now();
-  next();
 });
 
 const Question = mongoose.model('Question', QuestionSchema);

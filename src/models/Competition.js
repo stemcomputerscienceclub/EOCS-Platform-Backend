@@ -82,9 +82,8 @@ CompetitionSchema.methods.updateStatus = function() {
 };
 
 // Update the updatedAt timestamp before saving
-CompetitionSchema.pre('save', function(next) {
+CompetitionSchema.pre('save', function() {
   this.updatedAt = Date.now();
-  next();
 });
 
 const Competition = mongoose.model('Competition', CompetitionSchema);

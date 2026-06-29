@@ -56,8 +56,15 @@ const registerValidation = [
 ];
 
 const loginValidation = [
-  body('username').notEmpty().withMessage('Username is required'),
-  body('password').exists().withMessage('Password is required')
+  body('username').optional({ values: 'null' }).notEmpty().withMessage('Username is required'),
+  body('email').optional({ values: 'null' }).isEmail().withMessage('Valid email is required'),
+  body('password').exists().withMessage('Password is required'),
+  body().custom((value, { req }) => {
+    if (!req.body.username && !req.body.email) {
+      throw new Error('Username or email is required');
+    }
+    return true;
+  })
 ];
 
 const updateDetailsValidation = [

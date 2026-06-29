@@ -57,9 +57,8 @@ const ParticipationSchema = new mongoose.Schema({
 });
 
 // Update the updatedAt timestamp before saving
-ParticipationSchema.pre('save', function(next) {
+ParticipationSchema.pre('save', function() {
   this.updatedAt = Date.now();
-  next();
 });
 
 const Participation = mongoose.model('Participation', ParticipationSchema);

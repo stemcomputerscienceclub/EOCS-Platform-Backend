@@ -8,6 +8,7 @@ import ActivityLog from '../models/ActivityLog.js';
 import { calculateRemainingTime, utcToLocal } from '../utils/timeUtils.js';
 import { sampleQuestions } from '../data/sampleQuestions.js';
 import { config } from '../config/index.js';
+import { execFile } from 'child_process';
 
 const router = express.Router();
 
@@ -81,7 +82,22 @@ router.get('/status', authenticateJWT, async (req, res) => {
     const userId = req.user.id;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
-    // For demo, just check if there's a participation entry
+    // Check for completed participation first
+    const completedParticipation = await Participation.findOne({
+      user: userId,
+      status: 'completed'
+    });
+    
+    if (completedParticipation) {
+      return res.json({
+        status: 'completed',
+        startTime: completedParticipation.startTime,
+        endTime: completedParticipation.endTime,
+        timeRemaining: 0
+      });
+    }
+    
+    // Then check for active participation
     const participation = await Participation.findOne({
       user: userId,
       status: 'active'
@@ -141,17 +157,26 @@ router.post('/start', authenticateJWT, async (req, res) => {
 
     await participation.save();
 
-    // Get questions
-    const questions = sampleQuestions.map(q => ({
-      _id: q._id,
-      text: q.text,
-      type: q.type,
-      options: q.type === 'mcq' ? q.options : undefined,
-      language: q.language,
-      starterCode: q.starterCode,
-      points: q.points,
-      testCases: q.testCases ? q.testCases.map(tc => ({ input: tc.input })) : undefined
-    }));
+    const subjectMap = { phys: 'Physics', chem: 'Chemistry', math: 'Mathematics', bio: 'Biology', cs: 'Computer Science' };
+    const difficultyMap = { e: 'Easy', m: 'Moderate', a: 'Advanced' };
+
+    const questions = sampleQuestions.map(q => {
+      const parts = q._id.split('_');
+      const subject = subjectMap[parts[0]] || 'General';
+      const difficulty = difficultyMap[parts[1]?.[0]] || 'Unknown';
+      return {
+        _id: q._id,
+        text: q.text,
+        type: q.type,
+        subject,
+        difficulty,
+        options: q.type === 'mcq' ? q.options : undefined,
+        language: q.language,
+        starterCode: q.starterCode,
+        points: q.points,
+        testCases: q.testCases ? q.testCases.map(tc => ({ input: tc.input })) : undefined
+      };
+    });
 
     return res.json({
       message: 'Competition started successfully',
@@ -429,6 +454,7 @@ router.get('/results', authenticateJWT, async (req, res) => {
 router.post('/finish', authenticateJWT, async (req, res) => {
   try {
     const userId = req.user.id;
+    const { answers } = req.body;
     
     // Find the user's active participation
     const participation = await Participation.findOne({ 
@@ -438,6 +464,24 @@ router.post('/finish', authenticateJWT, async (req, res) => {
     
     if (!participation) {
       return res.status(404).json({ message: 'No active competition found' });
+    }
+    
+    // If answers array is provided, upsert all entries (answered + unanswered)
+    if (Array.isArray(answers) && answers.length > 0) {
+      for (const { questionId, answer } of answers) {
+        const answerIndex = participation.answers.findIndex(a => a.question === questionId);
+        const answerValue = answer ?? '';
+        if (answerIndex !== -1) {
+          participation.answers[answerIndex].answer = answerValue;
+          participation.answers[answerIndex].submittedAt = new Date();
+        } else {
+          participation.answers.push({
+            question: questionId,
+            answer: answerValue,
+            submittedAt: new Date()
+          });
+        }
+      }
     }
     
     // Update participation status to completed
@@ -452,6 +496,42 @@ router.post('/finish', authenticateJWT, async (req, res) => {
   } catch (error) {
     console.error('Error finishing competition:', error);
     return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Run user code (sandboxed execution)
+router.post('/run-code', authenticateJWT, async (req, res) => {
+  const { code, input } = req.body;
+
+  if (!code || typeof code !== 'string') {
+    return res.status(400).json({ message: 'Code is required' });
+  }
+
+  const maxOutput = 10240;
+  const timeout = 10000;
+
+  try {
+    const stdout = await new Promise((resolve, reject) => {
+      execFile('python3', ['-c', code], {
+        timeout,
+        maxBuffer: maxOutput,
+        input: input || '',
+        env: { ...process.env, PYTHONUNBUFFERED: '1' }
+      }, (err, out, errOut) => {
+        if (err) {
+          if (err.killed) return reject(new Error('timed out'));
+          return reject(err);
+        }
+        resolve({ stdout: out, stderr: errOut });
+      });
+    });
+
+    return res.json(stdout);
+  } catch (err) {
+    const message = err.code === 'ENOENT' ? 'Python3 not found on server'
+      : err.message === 'timed out' ? 'Execution timed out (10s limit)'
+      : 'Error executing code';
+    return res.status(500).json({ message });
   }
 });
 

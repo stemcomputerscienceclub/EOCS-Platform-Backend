@@ -5,10 +5,7 @@ import { config } from './config/index.js';
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
-mongoose.connect(config.mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(config.mongoUri)
 .then(() => {
   console.log('Connected to MongoDB');
   
