@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import competitionRoutes from './competitionRoutes.js';
 import authRoutes from './authRoutes.js';
 
@@ -9,7 +10,12 @@ router.use('/auth', authRoutes);
 
 // Health check route
 router.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok' });
+  const mongoState = mongoose.connection.readyState;
+  const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+  res.status(200).json({
+    status: 'ok',
+    mongo: states[mongoState] || 'unknown'
+  });
 });
 
 export { router }; 
