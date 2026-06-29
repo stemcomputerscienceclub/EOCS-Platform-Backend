@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, GetObjectCommand, PutBucketCorsCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const endpoint = process.env.DO_SPACES_ENDPOINT;
@@ -33,7 +33,7 @@ export async function uploadRecording(buffer, filename, contentType = 'video/web
     ACL: 'private',
   });
   await getClient().send(cmd);
-  const url = `https://${bucket}.${endpoint}/recordings/${filename}`;
+  const url = `https://${bucket}.${region}.digitaloceanspaces.com/recordings/${filename}`;
   return { url, key: `recordings/${filename}` };
 }
 
@@ -48,4 +48,22 @@ export async function getPresignedUploadUrl(filename, contentType = 'video/webm'
   return { url, key: `recordings/${filename}` };
 }
 
-export default { uploadRecording, getPresignedUploadUrl };
+export async function configureCors(allowedOrigins) {
+  const cmd = new PutBucketCorsCommand({
+    Bucket: bucket,
+    CORSConfiguration: {
+      CORSRules: [
+        {
+          AllowedOrigins: allowedOrigins || ['*'],
+          AllowedMethods: ['GET', 'PUT', 'POST', 'HEAD'],
+          AllowedHeaders: ['*'],
+          ExposeHeaders: ['ETag'],
+          MaxAgeSeconds: 3600,
+        },
+      ],
+    },
+  });
+  await getClient().send(cmd);
+}
+
+export default { uploadRecording, getPresignedUploadUrl, configureCors };

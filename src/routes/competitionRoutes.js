@@ -10,7 +10,7 @@ import { calculateRemainingTime, utcToLocal } from '../utils/timeUtils.js';
 import { sampleQuestions } from '../data/sampleQuestions.js';
 import { config } from '../config/index.js';
 import { execFile } from 'child_process';
-import { uploadRecording, getPresignedUploadUrl } from '../services/doSpaces.js';
+import { uploadRecording, getPresignedUploadUrl, configureCors } from '../services/doSpaces.js';
 
 const router = express.Router();
 
@@ -604,6 +604,21 @@ router.get('/upload-url', authenticateJWT, async (req, res) => {
   } catch (error) {
     console.error('Error generating upload URL:', error);
     return res.status(500).json({ success: false, error: 'Failed to generate upload URL' });
+  }
+});
+
+// Configure DO Spaces CORS (admin only, one-time setup)
+router.post('/setup-spaces-cors', authenticateJWT, requireAdmin, async (req, res) => {
+  try {
+    const allowedOrigins = [
+      process.env.CLIENT_URL || 'http://localhost:3000',
+      'http://localhost:5173',
+    ];
+    await configureCors(allowedOrigins);
+    return res.json({ success: true, message: 'DO Spaces CORS configured', origins: allowedOrigins });
+  } catch (error) {
+    console.error('Error configuring Spaces CORS:', error);
+    return res.status(500).json({ success: false, error: error.message });
   }
 });
 
