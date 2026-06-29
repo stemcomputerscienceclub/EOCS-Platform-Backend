@@ -14,7 +14,10 @@ router.get('/health', (req, res) => {
   const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
   res.status(200).json({
     status: 'ok',
-    mongo: states[mongoState] || 'unknown'
+    mongo: states[mongoState] || 'unknown',
+    hasMongoUri: !!process.env.MONGODB_URI,
+    hasJwtSecret: !!process.env.JWT_SECRET,
+    nodeEnv: process.env.NODE_ENV || 'not set'
   });
 });
 
