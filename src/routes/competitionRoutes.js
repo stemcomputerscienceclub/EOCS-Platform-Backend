@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import { authenticateJWT, requireAdmin } from '../middleware/auth.js';
 import Competition from '../models/Competition.js';
 import Question from '../models/Question.js';
@@ -9,6 +10,7 @@ import { calculateRemainingTime, utcToLocal } from '../utils/timeUtils.js';
 import { sampleQuestions } from '../data/sampleQuestions.js';
 import { config } from '../config/index.js';
 import { execFile } from 'child_process';
+import { uploadRecording, getPresignedUploadUrl } from '../services/doSpaces.js';
 
 const router = express.Router();
 
@@ -563,6 +565,45 @@ router.post('/dev/reset', authenticateJWT, requireAdmin, async (req, res) => {
       error: 'Internal server error',
       details: error.message 
     });
+  }
+});
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 500 * 1024 * 1024 } });
+
+router.post('/upload-recording', authenticateJWT, upload.single('recording'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No recording file provided' });
+    }
+    const recordingType = req.body.type || 'unknown';
+    const userId = req.user.id;
+    const timestamp = Date.now();
+    const ext = '.webm';
+    const filename = `${userId}-${recordingType}-${timestamp}${ext}`;
+
+    const { url, key } = await uploadRecording(req.file.buffer, filename, req.file.mimetype);
+    console.log(`Recording uploaded to DO Spaces: ${key} (${recordingType}, ${req.file.size} bytes)`);
+
+    return res.json({ success: true, url, key, size: req.file.size });
+  } catch (error) {
+    console.error('Error uploading recording:', error);
+    return res.status(500).json({ success: false, error: 'Failed to upload recording' });
+  }
+});
+
+// Get pre-signed upload URL for direct browser-to-Spaces upload
+router.get('/upload-url', authenticateJWT, async (req, res) => {
+  try {
+    const recordingType = req.query.type || 'unknown';
+    const userId = req.user.id;
+    const timestamp = Date.now();
+    const filename = `${userId}-${recordingType}-${timestamp}.webm`;
+
+    const { url, key } = await getPresignedUploadUrl(filename);
+    return res.json({ success: true, url, key });
+  } catch (error) {
+    console.error('Error generating upload URL:', error);
+    return res.status(500).json({ success: false, error: 'Failed to generate upload URL' });
   }
 });
 
