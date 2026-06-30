@@ -85,7 +85,7 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
         this.lockUntil = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
       }
       
-      await this.save();
+      await this.save({ validateBeforeSave: false });
       throw new Error('Invalid credentials');
     }
 
@@ -93,7 +93,7 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
     if (this.loginAttempts > 0) {
       this.loginAttempts = 0;
       this.lockUntil = undefined;
-      await this.save();
+      await this.save({ validateBeforeSave: false });
     }
 
     return true;
