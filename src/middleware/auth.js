@@ -50,7 +50,8 @@ export const authenticateJWT = async (req, res, next) => {
     req.user = {
       id: user._id,
       role: user.role,
-      username: user.username
+      username: user.username,
+      email: user.email,
     };
 
     next();

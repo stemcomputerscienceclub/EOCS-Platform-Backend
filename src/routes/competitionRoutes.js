@@ -10,7 +10,7 @@ import { calculateRemainingTime, utcToLocal } from '../utils/timeUtils.js';
 import { sampleQuestions } from '../data/sampleQuestions.js';
 import { config } from '../config/index.js';
 import { execFile } from 'child_process';
-import { uploadRecording, getPresignedUploadUrl, configureCors } from '../services/doSpaces.js';
+import { uploadRecording, getPresignedUploadUrl, configureCors, uploadSnapshot, uploadAudioChunk } from '../services/doSpaces.js';
 
 const router = express.Router();
 
@@ -619,6 +619,44 @@ router.post('/setup-spaces-cors', authenticateJWT, requireAdmin, async (req, res
   } catch (error) {
     console.error('Error configuring Spaces CORS:', error);
     return res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Upload proctoring snapshot image
+router.post('/upload-snapshot', authenticateJWT, upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No image provided' });
+    }
+
+    const email = req.user.email;
+    const timestamp = Date.now();
+    const { key } = await uploadSnapshot(req.file.buffer, email, timestamp);
+
+    console.log(`Snapshot uploaded to DO Spaces: ${key} (${req.file.size} bytes)`);
+    return res.json({ success: true, key });
+  } catch (error) {
+    console.error('Error uploading snapshot:', error);
+    return res.status(500).json({ success: false, error: 'Failed to upload snapshot' });
+  }
+});
+
+// Upload proctoring audio chunk
+router.post('/upload-audio', authenticateJWT, upload.single('audio'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No audio provided' });
+    }
+
+    const email = req.user.email;
+    const timestamp = Date.now();
+    const { key } = await uploadAudioChunk(req.file.buffer, email, timestamp);
+
+    console.log(`Audio uploaded to DO Spaces: ${key} (${req.file.size} bytes)`);
+    return res.json({ success: true, key });
+  } catch (error) {
+    console.error('Error uploading audio:', error);
+    return res.status(500).json({ success: false, error: 'Failed to upload audio' });
   }
 });
 

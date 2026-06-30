@@ -66,4 +66,30 @@ export async function configureCors(allowedOrigins) {
   await getClient().send(cmd);
 }
 
-export default { uploadRecording, getPresignedUploadUrl, configureCors };
+export async function uploadSnapshot(buffer, email, timestamp) {
+  const key = `recordings/${email}/snapshot-${timestamp}.jpg`;
+  const cmd = new PutObjectCommand({
+    Bucket: bucket,
+    Key: key,
+    Body: buffer,
+    ContentType: 'image/jpeg',
+    ACL: 'private',
+  });
+  await getClient().send(cmd);
+  return { key };
+}
+
+export async function uploadAudioChunk(buffer, email, timestamp) {
+  const key = `recordings/${email}/audio/audio-${timestamp}.webm`;
+  const cmd = new PutObjectCommand({
+    Bucket: bucket,
+    Key: key,
+    Body: buffer,
+    ContentType: 'audio/webm',
+    ACL: 'private',
+  });
+  await getClient().send(cmd);
+  return { key };
+}
+
+export default { uploadRecording, getPresignedUploadUrl, configureCors, uploadSnapshot, uploadAudioChunk };
