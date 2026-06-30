@@ -107,7 +107,7 @@ router.get('/status', authenticateJWT, async (req, res) => {
     
     if (participation) {
       return res.json({
-        status: 'active',
+        status: 'in_progress',
         startTime: participation.startTime,
         endTime: participation.endTime || new Date(participation.startTime.getTime() + competitionLength * 1000),
         timeRemaining: participation.timeRemaining || competitionLength
@@ -233,7 +233,7 @@ router.get('/progress', authenticateJWT, async (req, res) => {
     const effectiveTimeRemaining = now >= endTime ? 0 : timeRemaining;
 
     return res.json({
-      status: 'active',
+      status: 'in_progress',
       startTime: participation.startTime,
       endTime: endTime,
       timeRemaining: effectiveTimeRemaining,

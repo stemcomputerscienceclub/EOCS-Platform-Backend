@@ -5,7 +5,7 @@ import { config } from './config/index.js';
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
-mongoose.connect(config.mongoUri)
+mongoose.connect(config.mongoUri, { maxPoolSize: 10 })
 .then(() => {
   console.log('Connected to MongoDB');
   
