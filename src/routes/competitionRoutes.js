@@ -232,12 +232,34 @@ router.get('/progress', authenticateJWT, async (req, res) => {
     // Only return timeRemaining of 0 if the competition has actually ended
     const effectiveTimeRemaining = now >= endTime ? 0 : timeRemaining;
 
+    const subjectMap = { phys: 'Physics', chem: 'Chemistry', math: 'Mathematics', bio: 'Biology', cs: 'Computer Science' };
+    const difficultyMap = { e: 'Easy', m: 'Moderate', a: 'Advanced' };
+
+    const questions = sampleQuestions.map(q => {
+      const parts = q._id.split('_');
+      const subject = subjectMap[parts[0]] || 'General';
+      const difficulty = difficultyMap[parts[1]?.[0]] || 'Unknown';
+      return {
+        _id: q._id,
+        text: q.text,
+        type: q.type,
+        subject,
+        difficulty,
+        options: q.type === 'mcq' ? q.options : undefined,
+        language: q.language,
+        starterCode: q.starterCode,
+        points: q.points,
+        testCases: q.testCases ? q.testCases.map(tc => ({ input: tc.input })) : undefined
+      };
+    });
+
     return res.json({
       status: 'in_progress',
       startTime: participation.startTime,
       endTime: endTime,
       timeRemaining: effectiveTimeRemaining,
-      answers: participation.answers || []
+      answers: participation.answers || [],
+      questions
     });
   } catch (error) {
     console.error('Error getting competition progress:', error);
