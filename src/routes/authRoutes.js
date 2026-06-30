@@ -62,9 +62,10 @@ router.post('/login', async (req, res) => {
     }
 
     // Check password
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+    try {
+      await user.matchPassword(password);
+    } catch (matchErr) {
+      return res.status(401).json({ message: matchErr.message });
     }
 
     // Create token
