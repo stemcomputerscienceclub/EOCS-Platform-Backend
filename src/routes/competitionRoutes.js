@@ -456,7 +456,7 @@ router.get('/results', authenticateJWT, async (req, res) => {
 router.post('/finish', authenticateJWT, async (req, res) => {
   try {
     const userId = req.user.id;
-    const { answers } = req.body;
+    const { answers, submissionMethod } = req.body;
     
     // Find the user's active participation
     const participation = await Participation.findOne({ 
@@ -489,6 +489,7 @@ router.post('/finish', authenticateJWT, async (req, res) => {
     // Update participation status to completed
     participation.status = 'completed';
     participation.endTime = new Date();
+    participation.notes = submissionMethod || 'normal';
     await participation.save();
     
     return res.json({ 
