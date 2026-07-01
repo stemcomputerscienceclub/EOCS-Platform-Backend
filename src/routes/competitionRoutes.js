@@ -582,6 +582,10 @@ router.post('/run-code', authenticateJWT, async (req, res) => {
     return res.status(400).json({ message: 'Code is required' });
   }
 
+  if (code.length > 10000) {
+    return res.status(400).json({ message: 'Code exceeds maximum length of 10,000 characters' });
+  }
+
   const maxOutput = 10240;
   const timeout = 10000;
 
@@ -591,7 +595,7 @@ router.post('/run-code', authenticateJWT, async (req, res) => {
         timeout,
         maxBuffer: maxOutput,
         input: input || '',
-        env: { ...process.env, PYTHONUNBUFFERED: '1' }
+        env: { PATH: process.env.PATH || '/usr/bin', PYTHONUNBUFFERED: '1' }
       }, (err, out, errOut) => {
         if (err) {
           if (err.killed) return reject(new Error('timed out'));
@@ -603,7 +607,7 @@ router.post('/run-code', authenticateJWT, async (req, res) => {
 
     return res.json(stdout);
   } catch (err) {
-    const message = err.code === 'ENOENT' ? 'Python3 not found on server'
+    const message = err.code === 'ENOENT' ? 'Execution service unavailable'
       : err.message === 'timed out' ? 'Execution timed out (10s limit)'
       : 'Error executing code';
     return res.status(500).json({ message });

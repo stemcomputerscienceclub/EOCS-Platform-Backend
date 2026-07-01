@@ -1,21 +1,23 @@
 import nodemailer from 'nodemailer';
-import { config } from '../config/index.js';
 
 export const sendEmail = async (options) => {
+  if (!process.env.EMAIL_SERVICE || !process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn('Email not configured. Set EMAIL_SERVICE, EMAIL_USER, and EMAIL_PASS in .env');
+    return;
+  }
+
   // Create reusable transporter object using SMTP transport
   const transporter = nodemailer.createTransport({
-    host: config.email.host,
-    port: config.email.port,
-    secure: config.email.secure,
+    service: process.env.EMAIL_SERVICE,
     auth: {
-      user: config.email.auth.user,
-      pass: config.email.auth.pass,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   // Message object
   const message = {
-    from: `${process.env.FROM_NAME} <${config.email.auth.user}>`,
+    from: `${process.env.FROM_NAME || 'EOCS'} <${process.env.FROM_EMAIL || process.env.EMAIL_USER}>`,
     to: options.email,
     subject: options.subject,
     text: options.message,
