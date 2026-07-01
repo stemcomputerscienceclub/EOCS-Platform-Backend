@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 
 const ParticipationSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true
   },
   competition: {

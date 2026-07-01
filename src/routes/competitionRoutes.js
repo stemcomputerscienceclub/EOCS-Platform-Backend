@@ -81,12 +81,12 @@ router.get('/config', authenticateJWT, async (req, res) => {
 // Get user competition status
 router.get('/status', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
     // Check for completed participation first
     const completedParticipation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       status: 'completed'
     });
     
@@ -101,7 +101,7 @@ router.get('/status', authenticateJWT, async (req, res) => {
     
     // Then check for active participation
     const participation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       status: 'active'
     });
     
@@ -124,12 +124,12 @@ router.get('/status', authenticateJWT, async (req, res) => {
 // Start competition
 router.post('/start', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
 
     // Check if user has already completed or is participating
     const existingParticipation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       $or: [{ status: 'active' }, { status: 'completed' }]
     });
 
@@ -151,7 +151,7 @@ router.post('/start', authenticateJWT, async (req, res) => {
 
     // Create new participation
     const participation = new Participation({
-      user: userId,
+      user: userEmail,
       startTime: new Date(),
       status: 'active',
       timeRemaining: competitionLength
@@ -198,12 +198,12 @@ router.post('/start', authenticateJWT, async (req, res) => {
 // Get competition progress
 router.get('/progress', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
     // Check if user has already completed a participation
     const completedParticipation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       status: 'completed'
     });
 
@@ -216,7 +216,7 @@ router.get('/progress', authenticateJWT, async (req, res) => {
 
     // Find active participation
     let participation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       status: 'active'
     });
 
@@ -270,13 +270,13 @@ router.get('/progress', authenticateJWT, async (req, res) => {
 // Submit an answer
 router.post('/submit/:questionId', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const { questionId } = req.params;
     const { answer, type } = req.body;
     
     // Check if user has already completed
     const completedParticipation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       status: 'completed'
     });
 
@@ -289,7 +289,7 @@ router.post('/submit/:questionId', authenticateJWT, async (req, res) => {
 
     // Find active participation
     let participation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       status: 'active'
     });
     
@@ -345,18 +345,18 @@ router.post('/submit/:questionId', authenticateJWT, async (req, res) => {
 // Log suspicious activity
 router.post('/log-activity', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const { type, timestamp, details, warningCount } = req.body;
     
     // Get the user's active participation
     const participation = await Participation.findOne({ 
-      user: userId,
+      user: userEmail,
       status: 'active'
     });
     
     // Create activity log
     const activityLog = new ActivityLog({
-      user: userId,
+      user: userEmail,
       participation: participation ? participation._id : null,
       type,
       timestamp: timestamp || new Date(),
@@ -386,12 +386,12 @@ router.post('/log-activity', authenticateJWT, async (req, res) => {
 // Get competition results
 router.get('/results', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
     // Find active or completed participation
     const participation = await Participation.findOne({
-      user: userId,
+      user: userEmail,
       $or: [{ status: 'active' }, { status: 'completed' }]
     });
     
@@ -484,12 +484,12 @@ router.get('/results', authenticateJWT, async (req, res) => {
 // Finish competition
 router.post('/finish', authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const { answers, submissionMethod } = req.body;
     
     // Find the user's active participation
     const participation = await Participation.findOne({ 
-      user: userId,
+      user: userEmail,
       status: 'active'
     });
     
@@ -653,10 +653,10 @@ router.post('/upload-recording', authenticateJWT, upload.single('recording'), as
       return res.status(400).json({ success: false, error: 'No recording file provided' });
     }
     const recordingType = req.body.type || 'unknown';
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const timestamp = Date.now();
     const ext = '.webm';
-    const filename = `${userId}-${recordingType}-${timestamp}${ext}`;
+    const filename = `${userEmail}-${recordingType}-${timestamp}${ext}`;
 
     const { url, key } = await uploadRecording(req.file.buffer, filename, req.file.mimetype);
     console.log(`Recording uploaded to DO Spaces: ${key} (${recordingType}, ${req.file.size} bytes)`);
@@ -672,9 +672,9 @@ router.post('/upload-recording', authenticateJWT, upload.single('recording'), as
 router.get('/upload-url', authenticateJWT, async (req, res) => {
   try {
     const recordingType = req.query.type || 'unknown';
-    const userId = req.user.id;
+    const userEmail = req.user.email;
     const timestamp = Date.now();
-    const filename = `${userId}-${recordingType}-${timestamp}.webm`;
+    const filename = `${userEmail}-${recordingType}-${timestamp}.webm`;
 
     const { url, key } = await getPresignedUploadUrl(filename);
     return res.json({ success: true, url, key });
