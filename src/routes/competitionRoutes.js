@@ -434,6 +434,7 @@ router.get('/results', authenticateJWT, async (req, res) => {
         questionId: question._id,
         questionText: question.text,
         yourAnswer: normalizedAnswer,
+        language: answer.language || null,
         correctAnswer: correct,
         isCorrect,
         submittedAt: answer.submittedAt,
@@ -512,7 +513,7 @@ router.post('/finish', authenticateJWT, async (req, res) => {
     const gradedAnswers = [];
     
     if (Array.isArray(answers) && answers.length > 0) {
-      for (const { questionId, answer } of answers) {
+      for (const { questionId, answer, language } of answers) {
         const answerValue = answer ?? '';
         const isMcq = typeMap[questionId] === 'mcq';
         const correct = correctMap[questionId];
@@ -528,12 +529,14 @@ router.post('/finish', authenticateJWT, async (req, res) => {
         const answerIndex = participation.answers.findIndex(a => a.question === questionId);
         if (answerIndex !== -1) {
           participation.answers[answerIndex].answer = answerValue;
+          participation.answers[answerIndex].language = language;
           participation.answers[answerIndex].isCorrect = isCorrect;
           participation.answers[answerIndex].submittedAt = new Date();
         } else {
           participation.answers.push({
             question: questionId,
             answer: answerValue,
+            language,
             isCorrect,
             submittedAt: new Date()
           });
@@ -542,6 +545,7 @@ router.post('/finish', authenticateJWT, async (req, res) => {
         gradedAnswers.push({
           questionId,
           answer: answerValue,
+          language,
           correctAnswer: correct,
           isCorrect,
           points,

@@ -32,6 +32,10 @@ const ParticipationSchema = new mongoose.Schema({
       type: String,
       default: ''
     },
+    language: {
+      type: String,
+      default: null
+    },
     isCorrect: {
       type: Boolean,
       default: null
