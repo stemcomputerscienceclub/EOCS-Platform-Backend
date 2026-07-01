@@ -14,9 +14,68 @@ import { uploadRecording, getPresignedUploadUrl, configureCors, uploadSnapshot, 
 
 const router = express.Router();
 
+// Auto-submit all active participations whose time has expired
+async function autoSubmitExpiredParticipations() {
+  try {
+    const now = new Date();
+    let startTime;
+    if (process.env.COMPETITION_START_TIME) {
+      startTime = new Date(process.env.COMPETITION_START_TIME);
+    } else {
+      startTime = new Date(now.getTime() - 1000 * 60 * 5);
+    }
+    const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
+    const absoluteEndTime = new Date(startTime.getTime() + competitionLength * 1000);
+
+    // Only auto-submit if the competition window has passed
+    if (now < absoluteEndTime) return;
+
+    const expired = await Participation.find({ status: 'active' });
+
+    if (expired.length === 0) return;
+    console.log(`Auto-submitting ${expired.length} expired participations...`);
+
+    // Build correct answers map
+    const correctMap = {};
+    const pointsMap = {};
+    const typeMap = {};
+    sampleQuestions.forEach(q => {
+      correctMap[q._id] = q.correctAnswer || null;
+      pointsMap[q._id] = q.points || 0;
+      typeMap[q._id] = q.type || 'mcq';
+    });
+
+    for (const participation of expired) {
+      let score = 0;
+      for (const answer of participation.answers || []) {
+        const qId = answer.question;
+        const isMcq = typeMap[qId] === 'mcq';
+        const correct = correctMap[qId];
+        const isCorrect = isMcq && correct !== null ? answer.answer === correct : null;
+        answer.isCorrect = isCorrect;
+        if (isCorrect) {
+          score += pointsMap[qId] || 0;
+        }
+      }
+      participation.status = 'completed';
+      participation.endTime = now;
+      participation.score = score;
+      participation.notes = 'Auto-submitted at competition end';
+      await participation.save();
+    }
+
+    console.log(`Auto-submitted ${expired.length} participations`);
+  } catch (error) {
+    console.error('Error auto-submitting expired participations:', error);
+  }
+}
+
 // Get competition config
 router.get('/config', authenticateJWT, async (req, res) => {
   try {
+    // Auto-submit any expired participations before returning config
+    await autoSubmitExpiredParticipations();
+
     // Get competition config from environment variables
     const now = new Date();
     
@@ -78,9 +137,21 @@ router.get('/config', authenticateJWT, async (req, res) => {
   }
 });
 
+// Admin endpoint to manually trigger auto-submit of expired participations
+router.post('/auto-submit-expired', authenticateJWT, requireAdmin, async (req, res) => {
+  try {
+    await autoSubmitExpiredParticipations();
+    return res.json({ success: true, message: 'Expired participations auto-submitted' });
+  } catch (error) {
+    console.error('Error in auto-submit-expired:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
 // Get user competition status
 router.get('/status', authenticateJWT, async (req, res) => {
   try {
+    await autoSubmitExpiredParticipations();
     const userEmail = req.user.email;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
@@ -198,6 +269,7 @@ router.post('/start', authenticateJWT, async (req, res) => {
 // Get competition progress
 router.get('/progress', authenticateJWT, async (req, res) => {
   try {
+    await autoSubmitExpiredParticipations();
     const userEmail = req.user.email;
     const competitionLength = parseInt(process.env.COMPETITION_LENGTH || '300', 10);
     
