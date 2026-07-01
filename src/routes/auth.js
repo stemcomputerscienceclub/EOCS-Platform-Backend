@@ -51,9 +51,9 @@ const registerValidation = [
     .withMessage('Password must contain a lowercase letter')
     .matches(/[!@#$%^&*]/)
     .withMessage('Password must contain a special character'),
-  body('name').notEmpty().withMessage('Name is required')
-    .isLength({ min: 2, max: 100 }).withMessage('Name must be between 2 and 100 characters')
-    .matches(/^[a-zA-ZÀ-ÿ\u00C0-\u024F\u0400-\u04FF\u0600-\u06FF\u0750-\u077F\u1E00-\u1EFFa-zA-Z\s'.-]+$/).withMessage('Name can only contain letters, spaces, hyphens, apostrophes and dots')
+  body('username').notEmpty().withMessage('Username is required')
+    .isLength({ min: 2, max: 100 }).withMessage('Username must be between 2 and 100 characters')
+    .matches(/^[a-zA-ZÀ-ÿ\u00C0-\u024F\u0400-\u04FF\u0600-\u06FF\u0750-\u077F\u1E00-\u1EFFa-zA-Z\s'.-]+$/).withMessage('Username can only contain letters, spaces, hyphens, apostrophes and dots')
 ];
 
 const loginValidation = [
@@ -69,7 +69,7 @@ const loginValidation = [
 ];
 
 const updateDetailsValidation = [
-  body('name').optional().notEmpty().withMessage('Name cannot be empty'),
+  body('username').optional().notEmpty().withMessage('Username cannot be empty'),
   body('email').optional().isEmail().withMessage('Please provide a valid email')
 ];
 
