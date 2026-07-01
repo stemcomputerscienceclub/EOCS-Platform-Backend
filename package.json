@@ -11,6 +11,7 @@
     "test": "echo 'No test specified' && exit 0",
     "vercel-build": "npm install",
     "seed:admin": "node src/scripts/seedAdmin.js",
+    "seed:demo": "node src/scripts/seedDemoAccounts.js",
     "init-db": "node src/scripts/initDb.js",
     "init-questions": "node src/scripts/initQuestions.js"
   },

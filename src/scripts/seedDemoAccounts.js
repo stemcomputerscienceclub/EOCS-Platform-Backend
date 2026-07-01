@@ -3,6 +3,7 @@ import { User } from '../models/User.js';
 import { config } from '../config/index.js';
 
 const RANGES = [
+  { start: 1, end: 20 },
   { start: 51, end: 100 },
 ];
 

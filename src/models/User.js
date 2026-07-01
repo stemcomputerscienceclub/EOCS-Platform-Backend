@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     minlength: [2, 'Username must be at least 2 characters long'],
     maxlength: [100, 'Username cannot be more than 100 characters'],
-    match: [/^[a-zA-ZÀ-ÿ\u00C0-\u024F\u0400-\u04FF\u0600-\u06FF\u0750-\u077F\u1E00-\u1EFFa-zA-Z\s'.-]+$/, 'Username can only contain letters, spaces, hyphens, apostrophes and dots']
+    match: [/^[a-zA-ZÀ-ÿ\u00C0-\u024F\u0400-\u04FF\u0600-\u06FF\u0750-\u077F\u1E00-\u1EFFa-zA-Z0-9\s'.-]+$/, 'Username can only contain letters, digits, spaces, hyphens, apostrophes and dots']
   },
   email: {
     type: String,

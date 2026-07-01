@@ -1,348 +1,310 @@
 export const sampleQuestions = [
-  // Physics Questions - Easy
-  {
-    _id: 'phys_e1',
-    text: 'A computational physicist is modeling energy transfer in a system where constant forces act on objects causing displacement. If a constant force vector $\\vec{F}$ acts on an object, causing a displacement vector $\\Delta \\vec{r}$, which expression correctly defines the work ($W$) done by this force?',
-    type: 'mcq',
-    options: [
-      '$W = |\\vec{F}| \\cdot |\\Delta \\vec{r}|$',
-      '$W = \\vec{F} + \\Delta \\vec{r}$',
-      '$W = \\vec{F} \\cdot \\Delta \\vec{r}$',
-      '$W = \\dfrac{\\vec{F}}{\\Delta \\vec{r}}$'
-    ],
-    points: 1,
-    correctAnswer: '$W = \\vec{F} \\cdot \\Delta \\vec{r}$'
-  },
-  {
-    _id: 'phys_e2',
-    text: 'A computational scientist is running a simulation to see the ability of water to absorb heat from a nuclear reactor, he is using $0.04$ kg of water and he wants to see the amount of energy it absorbs when its temperature is raised from $1^\\circ$C to $10^\\circ$C. Note: $C_{W}=(4.186$ J/g$)\\times$ C',
-    type: 'mcq',
-    options: ['1.6744 J', '16.744 J', '167.44 J', '1674.4 J'],
-    points: 1,
-    correctAnswer: '1674.4 J'
-  },
-  {
-    _id: 'phys_e3',
-    text: 'In a computational simulation of an electrical circuit, a $2\\Omega$ resistor and a $4\\Omega$ resistor are connected in series to a $12$V battery. What is the current Intensity (I) that passes through the $4\\Omega$ resistor?',
-    type: 'mcq',
-    options: ['2 A', '4 A', '6 A', '12 A'],
-    points: 1,
-    correctAnswer: '2 A'
-  },
-  // Physics Questions - Moderate
-  {
-    _id: 'phys_m1',
-    text: 'While modeling an ideal gas in a simulated $1$ m$^{3}$ chamber, the computational scientist decided to see what will happen if the chamber suddenly expanded to $1.5$ m$^{3}$ under pressure of $10$ Pa and he inserted heat energy the system of 10 J. Find the change in the internal energy of the gas.',
-    type: 'mcq',
-    options: ['15 J', '5 J', '-5 J', '-15 J'],
-    points: 2,
-    correctAnswer: '5 J'
-  },
-  {
-    _id: 'phys_m2',
-    text: 'Imagine modeling an ideal fluid flowing through a horizontal pipe. As your model undergoes a simulation, you take some measurements and store it along the pipe toward the fluid flow, what happens to the sum of the pressure and energy per unit volume?',
-    type: 'mcq',
-    options: [
-      'It increases as the pipe diameter decreases',
-      'It decreases as the pipe diameter increases',
-      'It remains constant as the pipe diameter changes',
-      'It decreases as the pipe diameter decreases'
-    ],
-    points: 2,
-    correctAnswer: 'It remains constant as the pipe diameter changes'
-  },
-  // Physics Questions - Advanced
-  {
-    _id: 'phys_a1',
-    text: 'If an object modeled, as a particle, was projected at an angle $\\theta$ (with respect to the horizontal) with initial velocity $v_{0}$, let the maximum height the particle can reach during its trip is $H$, and the maximum horizontal distance (Range) be $R$, then, neglecting the air resistance, the ratio $\\dfrac{H}{R}$ is:',
-    type: 'mcq',
-    options: [
-      '$\\dfrac{\\tan(\\theta)}{4}$',
-      '$\\dfrac{\\cot(\\theta)}{4}$',
-      '$\\tan(\\theta)$',
-      '$\\cot(\\theta)$'
-    ],
-    points: 3,
-    correctAnswer: '$\\dfrac{\\tan(\\theta)}{4}$'
-  },
-  // Chemistry Questions - Easy
-  {
-    _id: 'chem_e1',
-    text: 'A computational scientist tried to model Ethylene (C$_{2}$H$_{4}$) using a software like MATLAB, the software asked him to enter the hybridization type of the double bond between $C^1$ and $C^2$, and the software will give him the bond angle. What is the hybridization of each carbon atom in Ethylene, and the expected bond angle between them?',
-    type: 'mcq',
-    options: [
-      'sp$^{3}$, 109.5$^{\\circ}$',
-      'sp$^{2}$, 120$^{\\circ}$',
-      'sp, 180$^{\\circ}$',
-      'sp$^{2}$, 109.5$^{\\circ}$'
-    ],
-    points: 1,
-    correctAnswer: 'sp$^{2}$, 120$^{\\circ}$'
-  },
-  {
-    _id: 'chem_e2',
-    text: 'A computational scientist was comparing F$_2$ and Cl$_2$ via RekJet Python Library. He was surprised that F$_2$, despite having higher electronegativity, had a weaker bond than Cl$_2$. How can you explain that?',
-    type: 'mcq',
-    options: [
-      'Fluorine atoms are larger, causing weaker overlap',
-      'Chlorine forms multiple bonds more easily',
-      'Fluorine\'s small size causes lone pair repulsion that weakens the bond',
-      'Cl$_2$ has a partial ionic character that strengthens the bond'
-    ],
-    points: 1,
-    correctAnswer: 'Fluorine\'s small size causes lone pair repulsion that weakens the bond'
-  },
-  {
-    _id: 'chem_e3',
-    text: 'In a computational model of gas behavior, the Ideal Gas Law is frequently used to relate macroscopic properties. For an ideal gas with $n$ moles, at temperature $T$ (in Kelvin), and occupying a volume $V$ (in Liters), if $R$ is the ideal gas constant, which expression correctly defines the pressure ($P$) of the gas?',
-    type: 'mcq',
-    options: [
-      '$P = \\dfrac{nRT}{V}$',
-      '$P = nRT V$',
-      '$P = \\dfrac{RT}{nV}$',
-      '$P = \\dfrac{nV}{RT}$'
-    ],
-    points: 1,
-    correctAnswer: '$P = \\dfrac{nRT}{V}$'
-  },
-  // Chemistry Questions - Moderate
-  {
-    _id: 'chem_m1',
-    text: 'While modeling a methane molecule (CH$_{4}$), a computational scientist noticed it formed a symmetrical shape. According to Valence Shell Electron Pair Repulsion (VSEPR) theory What is the shape of methane molecule?',
-    type: 'mcq',
-    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/8672bccfcdcd58328ce4a98aa9f6a3c82aa80972_whatsapp_image_2025-06-21_at_16.37.13_ea989794.jpg',
-    options: [
-      'Linear',
-      'Trigonal planar',
-      'Tetrahedral',
-      'Trigonal pyramidal'
-    ],
-    points: 2,
-    correctAnswer: 'Tetrahedral'
-  },
-  {
-    _id: 'chem_m2',
-    text: 'In a computational model of a gas mixture, it\'s often necessary to express the concentration of individual components using mole fractions. Consider a binary gas mixture consisting of $n_A$ moles of component A and $n_B$ moles of component B. Which expression correctly defines the mole fraction ($X_A$) of component A for use in a simulation?',
-    type: 'mcq',
-    options: [
-      '$X_A = \\dfrac{n_A}{n_B}$',
-      '$X_A = \\dfrac{n_B}{n_A + n_B}$',
-      '$X_A = n_A + n_B$',
-      '$X_A = \\dfrac{n_A}{n_A + n_B}$'
-    ],
-    points: 2,
-    correctAnswer: '$X_A = \\dfrac{n_A}{n_A + n_B}$'
-  },
-  // Chemistry Questions - Advanced
-  {
-    _id: 'chem_a1',
-    text: 'A computational scientist just made a simulation of a reaction, and he found out that the reaction is endothermic with a net enthalpy change of $\\Delta H = +50 \\text{ kJ/mol}$ and a net entropy change of $\\Delta S = +200 \\text{ J/mol}\\cdot\\text{K}$. The scientist then wants to make the reaction himself in real life, but he needs to know if the reaction is spontaneous or not. At what temperature (in Kelvin) does the reaction become spontaneous?',
-    type: 'mcq',
-    options: [
-      '$T\\ge \\text{15 K}$',
-      '$T\\ge \\text{150 K}$',
-      '$T\\ge \\text{250 K}$',
-      'Never spontaneous'
-    ],
-    points: 3,
-    correctAnswer: '$T\\ge \\text{250 K}$'
-  },
-  // Mathematics Questions - Easy
-  {
-    _id: 'math_e1',
-    text: 'Simplify the expression: $(5 + 3 \\times 2)^2 - 4 \\times 6 = \\ ?$',
-    type: 'mcq',
-    options: ['97', '92', '1512', '232'],
-    points: 1,
-    correctAnswer: '97'
-  },
-  {
-    _id: 'math_e2',
-    text: 'A computational scientist models the movement of a train. Initially, the train travels 120 km in 2 hours. Then the predict total distance if it continues for more 3 hours at the same calculated average speed is?',
-    type: 'mcq',
-    options: ['180 km', '240 km', '300 km', '360 km'],
-    points: 1,
-    correctAnswer: '300 km'
-  },
-  {
-    _id: 'math_e3',
-    text: 'A number theory algorithm requires finding the smallest positive integer that is a common multiple of two given integers, 12 and 18. What is the value that the algorithm should return?',
-    type: 'mcq',
-    options: ['72', '36', '54', '108'],
-    points: 1,
-    correctAnswer: '36'
-  },
-  // Mathematics Questions - Moderate
-  {
-    _id: 'math_m1',
-    text: 'In a data analysis application, a process is modeled by the quadratic function $f(x)=3x^2-4x+5$ To optimize the process, a computational routine needs to find the minimum output value of this function. What is the minimum value that the routine should identify?',
-    type: 'mcq',
-    options: ['$\\dfrac{11}{3}$', '$\\dfrac{13}{3}$', '$\\dfrac{15}{3}$', '$\\dfrac{17}{3}$'],
-    points: 2,
-    correctAnswer: '$\\dfrac{11}{3}$'
-  },
-  {
-    _id: 'math_m2',
-    text: 'A computer-aided design (CAD) system is used to determine the dimensions of a rectangular component. The design specifications state that the length of the rectangle is 5 cm more than twice its width, and its perimeter is 50 cm. What are the dimensions (width $w$ and length $l$) that the CAD system should calculate for this component?',
-    type: 'mcq',
-    options: [
-      '$w=\\dfrac{20}{3}$cm, $l=\\dfrac{55}{3}$cm',
-      '$w=\\dfrac{15}{3}$cm, $l=\\dfrac{45}{3}$cm',
-      '$w=\\dfrac{10}{3}$cm, $l=\\dfrac{35}{3}$cm',
-      '$w=\\dfrac{25}{3}$cm, $l=\\dfrac{65}{3}$cm'
-    ],
-    points: 2,
-    correctAnswer: '$w=\\dfrac{20}{3}$cm, $l=\\dfrac{55}{3}$cm'
-  },
-  // Mathematics Questions - Advanced
-  {
-    _id: 'math_a1',
-    text: 'In computational algorithms that involve summing sequences of numbers, it\'s often necessary to efficiently calculate the sum of the first $N$ positive integers. Which expression correctly defines the sum ($S_N$) of the first $N$ positive integers ($1, 2, 3, \\dots, N$)?',
-    type: 'mcq',
-    options: [
-      '$S_N = N^2$',
-      '$S_N = \\dfrac{N(N-1)}{2}$',
-      '$S_N = N(N+1)$',
-      '$S_N = \\dfrac{N(N+1)}{2}$'
-    ],
-    points: 3,
-    correctAnswer: '$S_N = \\dfrac{N(N+1)}{2}$'
-  },
-  // Biology Questions - Easy
+  // ==================== EASY ====================
+
+  // Biology Easy
   {
     _id: 'bio_e1',
-    text: 'In a computational genetic analysis of a family\'s inheritance pattern (in the Figure), the observed trait distribution across generations suggests which of the following is the most likely mode of inheritance?',
+    text: 'In Mendelian genetics, if a trait is autosomal dominant, which description correctly identifies an affected individual?',
     type: 'mcq',
-    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/51f63be0f1cab4ab869c58caf735b67b9274e448_picture1.png',
     options: [
-      'Images of the DNA',
-      'Protein shapes',
-      'Gene expression levels from RNA',
-      'Protein vibration velocity'
+      'They must be homozygous dominant (AA).',
+      'They carry at least one dominant allele.',
+      'They must have two recessive alleles.',
+      'They cannot pass the trait to offspring.'
     ],
     points: 1,
-    correctAnswer: 'Gene expression levels from RNA'
+    correctAnswer: 'They carry at least one dominant allele.'
   },
   {
     _id: 'bio_e2',
-    text: 'In computational biology, phylogenetic trees are used to:',
+    text: 'In a population with allele frequency p(A) = 0.7, what is the frequency of the alternative allele a?',
     type: 'mcq',
-    options: [
-      'Track laboratory fossils',
-      'Study computer viruses',
-      'Test chemicals',
-      'Show how species are related through evolution'
-    ],
+    options: ['0.7', '0.49', '0.3', '1.7'],
     points: 1,
-    correctAnswer: 'Show how species are related through evolution'
+    correctAnswer: '0.3'
   },
   {
     _id: 'bio_e3',
-    text: 'In genomic studies correlating phenotypes with nutrient deficiencies, night blindness is associated with the lack of which vitamin?',
+    text: 'Which molecule is the primary carrier of inherited genetic information in cells?',
+    type: 'mcq',
+    options: ['DNA', 'ATP', 'Glucose', 'Cholesterol'],
+    points: 1,
+    correctAnswer: 'DNA'
+  },
+  {
+    _id: 'bio_e4',
+    text: 'What insulating material allows action potentials to travel faster along many axons?',
+    type: 'mcq',
+    options: ['Actin', 'Myelin', 'Hemoglobin', 'Collagen'],
+    points: 1,
+    correctAnswer: 'Myelin'
+  },
+
+  // Chemistry Easy
+  {
+    _id: 'chem_e1',
+    text: 'A program calculates root-mean-square gas speed, which scales as $\\sqrt{T/M}$. If temperature is constant and molar mass becomes four times larger, how does the computed speed scale?',
+    type: 'mcq',
+    options: ['It doubles.', 'It is cut in half.', 'It quadruples.', 'It is quartered.'],
+    points: 1,
+    correctAnswer: 'It is cut in half.'
+  },
+  {
+    _id: 'chem_e2',
+    text: 'An electroplating simulator uses Faraday\'s law. With current I = 2.0 A for t = 96.5 s and F ≈ 96500 C/mol, how many moles of electrons are transferred?',
+    type: 'mcq',
+    options: ['0.002 mol', '0.001 mol', '0.200 mol', '2.000 mol'],
+    points: 1,
+    correctAnswer: '0.002 mol'
+  },
+  {
+    _id: 'chem_e3',
+    text: 'For $A \\rightleftharpoons B$, steady-state concentrations are [A] = 2.0 M and [B] = 8.0 M. What is $K_c$?',
+    type: 'mcq',
+    options: ['0.25', '2.0', '16.0', '4.0'],
+    points: 1,
+    correctAnswer: '4.0'
+  },
+
+  // Physics Easy
+  {
+    _id: 'phys_e1',
+    text: 'If two masses M and m are separated by distance r, which expression defines the magnitude of the gravitational force between them?',
     type: 'mcq',
     options: [
-      'Vitamin C',
-      'Vitamin A',
-      'Vitamin B12',
-      'Vitamin B6'
+      '$F = \\dfrac{GMm}{r}$',
+      '$F = \\dfrac{GMm}{r^2}$',
+      '$F = \\dfrac{G(M+m)}{r^2}$',
+      '$F = GMmr$'
     ],
     points: 1,
-    correctAnswer: 'Vitamin A'
+    correctAnswer: '$F = \\dfrac{GMm}{r^2}$'
   },
-  // Biology Questions - Moderate
+  {
+    _id: 'phys_e2',
+    text: 'An isolated system undergoes a collision between two bodies. Which physical quantity must remain conserved?',
+    type: 'mcq',
+    options: ['Temperature', 'Pressure', 'Momentum', 'Density'],
+    points: 1,
+    correctAnswer: 'Momentum'
+  },
+  {
+    _id: 'phys_e3',
+    text: 'A material has mass m and volume V. Which expression defines density ρ?',
+    type: 'mcq',
+    options: ['$\\rho = V/m$', '$\\rho = mV$', '$\\rho = m/V$', '$\\rho = m + V$'],
+    points: 1,
+    correctAnswer: '$\\rho = m/V$'
+  },
+
+  // Mathematics Easy
+  {
+    _id: 'math_e1',
+    text: 'Solve for x in the relation $3x + 8 = 23$.',
+    type: 'mcq',
+    options: ['3', '5', '7', '4'],
+    points: 1,
+    correctAnswer: '5'
+  },
+  {
+    _id: 'math_e2',
+    text: 'A testing loop follows the arithmetic sequence 4, 7, 10, 13, .... What is the 10th term?',
+    type: 'mcq',
+    options: ['28', '31', '34', '37'],
+    points: 1,
+    correctAnswer: '31'
+  },
+  {
+    _id: 'math_e3',
+    text: 'Solve the inequality $5 - 2x < 11$.',
+    type: 'mcq',
+    options: ['x < −3', 'x > −3', 'x < 3', 'x > 3'],
+    points: 1,
+    correctAnswer: 'x > −3'
+  },
+
+  // Computer Science Easy
+  {
+    _id: 'cs_e1',
+    text: 'Problem Title: Average Temperature Over Time\n\nA sensor records the temperature of a specific point in a simulation every hour. Given N temperature readings, calculate the average temperature.\n\nInput: Line 1 contains an integer N (1 ≤ N ≤ 1000). Line 2 contains N space-separated integers representing the temperature readings Ti (−50 ≤ Ti ≤ 100).\nOutput: A single floating-point number, the average temperature, rounded to 2 decimal places.\n\nExample Input:\n5\n10 12 8 15 10\nExample Output:\n11.00',
+    type: 'code',
+    points: 1
+  },
+
+  // ==================== MODERATE ====================
+
+  // Biology Moderate
   {
     _id: 'bio_m1',
-    text: 'A double-stranded DNA molecule analyzed in silico reveals a total of 125 purines and 125 pyrimidines. Which of the following base compositions is consistent with this data, based on Watson-Crick pairing?',
+    text: 'A sensory neuron receives weak and strong stimuli. Both produce action potentials with the same amplitude, but the stronger stimulus feels more intense. What best explains this?',
     type: 'mcq',
     options: [
-      '125 adenine and 125 uracil molecules',
-      '125 thymine and 125 adenine molecules',
-      '125 cytosine and 125 thymine molecules',
-      '250 adenine and 250 cytosine molecules'
+      'The stronger stimulus increases spike amplitude.',
+      'The stronger stimulus increases firing frequency.',
+      'The stronger stimulus removes the refractory period.',
+      'The stronger stimulus changes the axon diameter immediately.'
     ],
     points: 2,
-    correctAnswer: '125 thymine and 125 adenine molecules'
+    correctAnswer: 'The stronger stimulus increases firing frequency.'
   },
   {
     _id: 'bio_m2',
-    text: 'A gene mutation occurs in 1 out of every 500 individuals. Under the assumption of statistical independence, what is the probability that two randomly selected individuals both carry the mutation?',
+    text: 'The figure shows an ion channel changing from closed to open. Which conclusion is most accurate?',
     type: 'mcq',
     options: [
-      '1/250',
-      '1/500',
-      '1/250,000',
-      '1/1,000'
+      'A protein conformational change allows ions to move across the membrane.',
+      'The channel destroys all ion gradients immediately.',
+      'The channel must always cause an action potential.',
+      'The channel prevents any future voltage change.'
     ],
     points: 2,
-    correctAnswer: '1/250,000'
+    correctAnswer: 'A protein conformational change allows ions to move across the membrane.'
   },
-  // Biology Questions - Advanced
   {
-    _id: 'bio_a1',
-    text: 'In computational molecular biology and gene expression analysis, evaluating the efficiency of heterologous gene expression often involves calculating the Codon Adaptation Index (CAI). For a gene composed of $N$ codons, where $w_i$ is the relative adaptiveness of the $i$-th codon (based on its frequency in a reference set of highly expressed genes), which expression correctly defines the CAI?',
+    _id: 'bio_m3',
+    text: 'A recessive disease allele has frequency q = 0.2 under Hardy–Weinberg equilibrium. What fraction of the population is expected to be affected?',
+    type: 'mcq',
+    options: ['0.2', '0.04', '0.32', '0.8'],
+    points: 2,
+    correctAnswer: '0.04'
+  },
+
+  // Chemistry Moderate
+  {
+    _id: 'chem_m1',
+    text: 'For a non-linear molecule of N atoms, total degrees of freedom are 3N. After subtracting 3 translational and 3 rotational degrees, how many vibrational degrees of freedom remain?',
+    type: 'mcq',
+    options: ['3N − 3', '3N − 5', '3N', '3N − 6'],
+    points: 2,
+    correctAnswer: '3N − 6'
+  },
+  {
+    _id: 'chem_m2',
+    text: 'A potential-energy surface algorithm finds a stationary point where the first derivative is zero and the point is a minimum in all directions except one, where it is a maximum. What has it located?',
     type: 'mcq',
     options: [
-      '$\\text{CAI} = \\frac{1}{N} \\sum_{i=1}^{N} w_i$',
-      '$\\text{CAI} = \\prod_{i=1}^{N}{w_i^\\dfrac{1}{N}}$',
-      '$\\text{CAI} = \\left( \\sum_{i=1}^{N} \\log w_i \\right)^2$',
-      '$\\text{CAI} = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} w_i^2}$'
+      'A ground-state global minimum',
+      'A completely unbound state',
+      'A thermodynamic equilibrium',
+      'A reaction transition state'
     ],
-    points: 3,
-    correctAnswer: '$\\text{CAI} = \\prod_{i=1}^{N}{w_i^\\dfrac{1}{N}}$'
+    points: 2,
+    correctAnswer: 'A reaction transition state'
   },
-  // Computer Science Questions - Easy
+
+  // Physics Moderate
   {
-    _id: 'cs_e1',
-    text: 'Problem Title: Chemical Reaction Balance Check\n\nDescription: In computational chemistry, you need to verify if a given chemical reaction is balanced. You are provided with the counts of atoms for two elements (e.g., Hydrogen and Oxygen) on the reactant side and the product side. The reaction is balanced if the count of each atom is the same on both sides.\n\nInput:\nLine 1: Four integers H_R, O_R, H_P, O_P (0 ≤ H_R, O_R, H_P, O_P ≤ 1000), representing Hydrogen and Oxygen counts on Reactant and Product sides, respectively.\n\nOutput:\n"BALANCED" if both Hydrogen and Oxygen are balanced, otherwise "UNBALANCED".\n\nExample:\nInput:\n4 2 4 2\nOutput:\nBALANCED\n\nInput:\n2 1 4 2\nOutput:\nUNBALANCED',
-    type: 'code',
-    points: 1
-  },
-  {
-    _id: 'cs_e2',
-    text: 'Problem Title: 1D Particle Movement Simulation\n\nDescription: You are simulating the movement of a single particle along a 1D line. The particle starts at position 0. You are given a sequence of N commands. Each command is either \'L\' (move left by 1 unit) or \'R\' (move right by 1 unit). Calculate the particle\'s final position after executing all commands.\n\nInput:\nLine 1: An integer N (1 ≤ N ≤ 1000).\nLine 2: A string S of length N, consisting only of \'L\' and \'R\' characters.\n\nOutput: A single integer, the final position of the particle.\n\nExample:\nInput:\n7\nRLRRLRL\nOutput:\n1',
-    type: 'code',
-    points: 1
-  },
-  {
-    _id: 'cs_e3',
-    text: 'Running df.groupby(\'id\').agg([\'mean\',\'count\']) returns:',
+    _id: 'phys_m1',
+    text: 'For a planet of mass m in a circular orbit of radius r around a star of mass M, which expression gives the total mechanical energy E?',
     type: 'mcq',
     options: [
-      '1-D array',
-      'Multi-index DataFrame of means & counts',
-      'Only counts',
-      'Pivot chart'
+      '$E = +\\dfrac{GMm}{2r}$',
+      '$E = -\\dfrac{GMm}{2r}$',
+      '$E = -\\dfrac{GMm}{r}$',
+      '$E = 0$'
     ],
-    points: 1,
-    correctAnswer: 'Multi-index DataFrame of means & counts'
+    points: 2,
+    correctAnswer: '$E = -\\dfrac{GMm}{2r}$'
   },
-  // Computer Science Questions - Moderate
+  {
+    _id: 'phys_m2',
+    text: 'A satellite\'s circular-orbit radius increases from r to 2r. By what factor does its orbital period T change?',
+    type: 'mcq',
+    options: ['T becomes ½T', 'T becomes √2 T', 'T becomes 2T', 'T becomes 2√2 T'],
+    points: 2,
+    correctAnswer: 'T becomes 2√2 T'
+  },
+
+  // Mathematics Moderate
+  {
+    _id: 'math_m1',
+    text: 'Find the sum of the first six terms of 3, 6, 12, 24, ....',
+    type: 'mcq',
+    options: ['189', '93', '381', '192'],
+    points: 2,
+    correctAnswer: '189'
+  },
+  {
+    _id: 'math_m2',
+    text: 'Find the average rate of change of $f(x) = 3x^2 - 2x$ over [1, 4].',
+    type: 'mcq',
+    options: ['13', '15', '39', '11'],
+    points: 2,
+    correctAnswer: '13'
+  },
+
+  // Computer Science Moderate
   {
     _id: 'cs_m1',
-    text: 'Problem Title: Finding Local Maxima in 1D Data\n\nDescription: A data acquisition system collects a sequence of N numerical readings. A reading is considered a "local maximum" if its value is strictly greater than its immediate left neighbor and strictly greater than its immediate right neighbor. The first and last readings cannot be local maxima (as they only have one neighbor). Count the total number of local maxima in the sequence.\n\nInput:\nLine 1: An integer N (3 ≤ N ≤ 1000).\nLine 2: N space-separated integers, representing the data points Di (-1000 ≤ Di ≤ 1000).\n\nOutput: A single integer, the count of local maxima.\n\nExample:\nInput:\n7\n10 5 12 8 15 3 20\nOutput:\n2',
-    type: 'code',
-    points: 2
+    text: 'A bar chart titled \'Missing Values by Column\' shows null counts for columns Age, Score, City, and Email, with Score having the tallest bar. Which Pandas command should you run first to quantify the tallest bar?',
+    type: 'mcq',
+    options: ['df.dropna()', 'df.isnull().sum()', 'df.replace()', 'df.fillna(0)'],
+    points: 2,
+    correctAnswer: 'df.isnull().sum()'
   },
   {
     _id: 'cs_m2',
-    text: 'The loss plateaus after epoch~4. What is the safest first reaction?',
+    text: 'Which call clones a NumPy array so changes to the copy never affect the original?',
     type: 'mcq',
-    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/b05ad90b6c6f5e63922487e1233ac324f4bd9027_loss_plateau-removebg-preview__1_.png',
-    options: [
-      'Add layers',
-      'Raise LR 10×',
-      'Train longer',
-      'Switch optimizer'
-    ],
+    options: ['b = a', 'b = a.view()', 'b = a.copy()', 'b = np.asarray(a)'],
     points: 2,
-    correctAnswer: 'Train longer'
+    correctAnswer: 'b = a.copy()'
   },
-  // Computer Science Questions - Advanced
+
+  // ==================== DIFFICULT (ADVANCED) ====================
+
+  // Biology Advanced
+  {
+    _id: 'bio_a1',
+    text: 'Two species differ at 12% of homologous DNA sites. If substitutions accumulate independently in each lineage at 1.5% per million years, when did they diverge?',
+    type: 'mcq',
+    options: ['4 million years ago', '8 million years ago', '12 million years ago', '18 million years ago'],
+    points: 3,
+    correctAnswer: '4 million years ago'
+  },
+
+  // Chemistry Advanced
+  {
+    _id: 'chem_a1',
+    text: 'A weak acid HA dissociates into H+ and A−. Given $\\alpha = [A^-]/([HA]+[A^-])$ and $K_a = [H^+][A^-]/[HA]$, which formula computes α using only [H+] and $K_a$?',
+    type: 'mcq',
+    options: [
+      '$\\alpha = \\dfrac{K_a}{K_a + [H^+]}$',
+      '$\\alpha = \\dfrac{[H^+]}{K_a + [H^+]}$',
+      '$\\alpha = K_a [H^+]$',
+      '$\\alpha = \\dfrac{K_a + [H^+]}{K_a}$'
+    ],
+    points: 3,
+    correctAnswer: '$\\alpha = \\dfrac{K_a}{K_a + [H^+]}$'
+  },
+
+  // Physics Advanced
+  {
+    _id: 'phys_a1',
+    text: 'For a gravitationally bound steady-state system, the virial theorem gives $2\\langle K \\rangle = -\\langle U \\rangle$. If $E_{total} = \\langle K \\rangle + \\langle U \\rangle$, what is $\\langle K \\rangle / E_{total}$?',
+    type: 'mcq',
+    options: ['1', '−1', '2', '−2'],
+    points: 3,
+    correctAnswer: '−1'
+  },
+
+  // Mathematics Advanced
+  {
+    _id: 'math_a1',
+    text: 'A channel drops packets with probability p = 0.2 per attempt. What is the expected number of attempts required to successfully deliver one packet?',
+    type: 'mcq',
+    options: ['1.25', '1.5', '2.0', '5.0'],
+    points: 3,
+    correctAnswer: '1.25'
+  },
+
+  // Computer Science Advanced
   {
     _id: 'cs_a1',
-    text: 'Problem Title: Monte Carlo Quarter Circle Area Estimation\n\nDescription: In computational science, Monte Carlo methods are used to estimate areas by random sampling. You are tasked with estimating the area of a quarter circle.\n\nConsider a square with corners at (0,0), (1,0), (0,1), and (1,1). Inscribed within this square is a quarter circle centered at (0,0) with radius 1.\n\nInput:\nLine 1: An integer N (1 ≤ N ≤ 10000), the number of random points.\nNext N lines: Two floating-point numbers x_i, y_i (0.0 ≤ x_i, y_i ≤ 1.0), representing the coordinates of each point.\n\nOutput:\nA single floating-point number, the estimated area of the quarter circle, rounded to 6 decimal places.',
-    type: 'code',
-    image: 'https://hc-cdn.hel1.your-objectstorage.com/s/v3/30453a7d76010c326a90656debbf2e8b1017e75b_whatsapp_image_2025-06-21_at_16.37.33_ee50636a.jpg',
-    points: 3
+    text: 'Average-case lookup time for a Python dict is:',
+    type: 'mcq',
+    options: ['Θ(log n)', 'Θ(n)', 'Θ(n log n)', 'Θ(1)'],
+    points: 3,
+    correctAnswer: 'Θ(1)'
   }
-]; 
+];
