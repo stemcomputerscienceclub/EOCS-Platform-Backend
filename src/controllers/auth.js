@@ -15,14 +15,13 @@ export const register = async (req, res, next) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password, firstName, lastName, username, role } = req.body;
+    const { email, password, name, username, role } = req.body;
 
     // Allow setting role only in development mode
     const userData = {
       email,
       password,
-      firstName,
-      lastName,
+      name,
       username: username || email.split('@')[0],
       ...(process.env.NODE_ENV === 'development' && role && { role })
     };
@@ -117,8 +116,7 @@ export const updateDetails = async (req, res, next) => {
     }
 
     const fieldsToUpdate = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      name: req.body.name,
       email: req.body.email
     };
 
