@@ -42,15 +42,7 @@ const registerValidation = [
   body('email').isEmail().withMessage('Please provide a valid email'),
   body('password')
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long')
-    .matches(/\d/)
-    .withMessage('Password must contain a number')
-    .matches(/[A-Z]/)
-    .withMessage('Password must contain an uppercase letter')
-    .matches(/[a-z]/)
-    .withMessage('Password must contain a lowercase letter')
-    .matches(/[!@#$%^&*]/)
-    .withMessage('Password must contain a special character'),
+    .withMessage('Password must be at least 8 characters long'),
   body('username').notEmpty().withMessage('Username is required')
     .isLength({ min: 2, max: 100 }).withMessage('Username must be between 2 and 100 characters')
     .matches(/^[a-zA-ZÀ-ÿ\u00C0-\u024F\u0400-\u04FF\u0600-\u06FF\u0750-\u077F\u1E00-\u1EFFa-zA-Z\s'.-]+$/).withMessage('Username can only contain letters, spaces, hyphens, apostrophes and dots')
@@ -78,14 +70,6 @@ const updatePasswordValidation = [
   body('newPassword')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long')
-    .matches(/\d/)
-    .withMessage('Password must contain a number')
-    .matches(/[A-Z]/)
-    .withMessage('Password must contain an uppercase letter')
-    .matches(/[a-z]/)
-    .withMessage('Password must contain a lowercase letter')
-    .matches(/[!@#$%^&*]/)
-    .withMessage('Password must contain a special character')
 ];
 
 // Apply rate limiter to auth routes
