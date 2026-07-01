@@ -47,11 +47,11 @@ export const login = async (req, res, next) => {
       return next(new ErrorResponse('Please provide username/email and password', 400));
     }
 
-    // Check if user exists by username or email
+    // Check if user exists by username or email (case-insensitive email match)
     const user = await User.findOne({
       $or: [
         { username: identifier },
-        { email: identifier.toLowerCase() }
+        { email: { $regex: new RegExp(`^${identifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') } }
       ]
     }).select('+password');
 
