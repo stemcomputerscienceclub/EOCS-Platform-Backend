@@ -528,11 +528,13 @@ router.post('/finish', authenticateJWT, async (req, res) => {
         const answerIndex = participation.answers.findIndex(a => a.question === questionId);
         if (answerIndex !== -1) {
           participation.answers[answerIndex].answer = answerValue;
+          participation.answers[answerIndex].isCorrect = isCorrect;
           participation.answers[answerIndex].submittedAt = new Date();
         } else {
           participation.answers.push({
             question: questionId,
             answer: answerValue,
+            isCorrect,
             submittedAt: new Date()
           });
         }

@@ -32,6 +32,10 @@ const ParticipationSchema = new mongoose.Schema({
       type: String,
       default: ''
     },
+    isCorrect: {
+      type: Boolean,
+      default: null
+    },
     submittedAt: {
       type: Date
     }
