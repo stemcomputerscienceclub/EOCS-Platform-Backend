@@ -10,21 +10,24 @@ export const sampleQuestions = [
       '$W = \\vec{F} \\cdot \\Delta \\vec{r}$',
       '$W = \\dfrac{\\vec{F}}{\\Delta \\vec{r}}$'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: '$W = \\vec{F} \\cdot \\Delta \\vec{r}$'
   },
   {
     _id: 'phys_e2',
     text: 'A computational scientist is running a simulation to see the ability of water to absorb heat from a nuclear reactor, he is using $0.04$ kg of water and he wants to see the amount of energy it absorbs when its temperature is raised from $1^\\circ$C to $10^\\circ$C. Note: $C_{W}=(4.186$ J/g$)\\times$ C',
     type: 'mcq',
     options: ['1.6744 J', '16.744 J', '167.44 J', '1674.4 J'],
-    points: 1
+    points: 1,
+    correctAnswer: '1674.4 J'
   },
   {
     _id: 'phys_e3',
     text: 'In a computational simulation of an electrical circuit, a $2\\Omega$ resistor and a $4\\Omega$ resistor are connected in series to a $12$V battery. What is the current Intensity (I) that passes through the $4\\Omega$ resistor?',
     type: 'mcq',
     options: ['2 A', '4 A', '6 A', '12 A'],
-    points: 1
+    points: 1,
+    correctAnswer: '2 A'
   },
   // Physics Questions - Moderate
   {
@@ -32,7 +35,8 @@ export const sampleQuestions = [
     text: 'While modeling an ideal gas in a simulated $1$ m$^{3}$ chamber, the computational scientist decided to see what will happen if the chamber suddenly expanded to $1.5$ m$^{3}$ under pressure of $10$ Pa and he inserted heat energy the system of 10 J. Find the change in the internal energy of the gas.',
     type: 'mcq',
     options: ['15 J', '5 J', '-5 J', '-15 J'],
-    points: 2
+    points: 2,
+    correctAnswer: '5 J'
   },
   {
     _id: 'phys_m2',
@@ -44,7 +48,8 @@ export const sampleQuestions = [
       'It remains constant as the pipe diameter changes',
       'It decreases as the pipe diameter decreases'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: 'It remains constant as the pipe diameter changes'
   },
   // Physics Questions - Advanced
   {
@@ -57,7 +62,8 @@ export const sampleQuestions = [
       '$\\tan(\\theta)$',
       '$\\cot(\\theta)$'
     ],
-    points: 3
+    points: 3,
+    correctAnswer: '$\\dfrac{\\tan(\\theta)}{4}$'
   },
   // Chemistry Questions - Easy
   {
@@ -70,7 +76,8 @@ export const sampleQuestions = [
       'sp, 180$^{\\circ}$',
       'sp$^{2}$, 109.5$^{\\circ}$'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: 'sp$^{2}$, 120$^{\\circ}$'
   },
   {
     _id: 'chem_e2',
@@ -82,7 +89,8 @@ export const sampleQuestions = [
       'Fluorine\'s small size causes lone pair repulsion that weakens the bond',
       'Cl$_2$ has a partial ionic character that strengthens the bond'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: 'Fluorine\'s small size causes lone pair repulsion that weakens the bond'
   },
   {
     _id: 'chem_e3',
@@ -94,7 +102,8 @@ export const sampleQuestions = [
       '$P = \\dfrac{RT}{nV}$',
       '$P = \\dfrac{nV}{RT}$'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: '$P = \\dfrac{nRT}{V}$'
   },
   // Chemistry Questions - Moderate
   {
@@ -108,7 +117,8 @@ export const sampleQuestions = [
       'Tetrahedral',
       'Trigonal pyramidal'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: 'Tetrahedral'
   },
   {
     _id: 'chem_m2',
@@ -120,7 +130,8 @@ export const sampleQuestions = [
       '$X_A = n_A + n_B$',
       '$X_A = \\dfrac{n_A}{n_A + n_B}$'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: '$X_A = \\dfrac{n_A}{n_A + n_B}$'
   },
   // Chemistry Questions - Advanced
   {
@@ -133,7 +144,8 @@ export const sampleQuestions = [
       '$T\\ge \\text{250 K}$',
       'Never spontaneous'
     ],
-    points: 3
+    points: 3,
+    correctAnswer: '$T\\ge \\text{250 K}$'
   },
   // Mathematics Questions - Easy
   {
@@ -141,21 +153,24 @@ export const sampleQuestions = [
     text: 'Simplify the expression: $(5 + 3 \\times 2)^2 - 4 \\times 6 = \\ ?$',
     type: 'mcq',
     options: ['97', '92', '1512', '232'],
-    points: 1
+    points: 1,
+    correctAnswer: '97'
   },
   {
     _id: 'math_e2',
     text: 'A computational scientist models the movement of a train. Initially, the train travels 120 km in 2 hours. Then the predict total distance if it continues for more 3 hours at the same calculated average speed is?',
     type: 'mcq',
     options: ['180 km', '240 km', '300 km', '360 km'],
-    points: 1
+    points: 1,
+    correctAnswer: '300 km'
   },
   {
     _id: 'math_e3',
     text: 'A number theory algorithm requires finding the smallest positive integer that is a common multiple of two given integers, 12 and 18. What is the value that the algorithm should return?',
     type: 'mcq',
     options: ['72', '36', '54', '108'],
-    points: 1
+    points: 1,
+    correctAnswer: '36'
   },
   // Mathematics Questions - Moderate
   {
@@ -163,7 +178,8 @@ export const sampleQuestions = [
     text: 'In a data analysis application, a process is modeled by the quadratic function $f(x)=3x^2-4x+5$ To optimize the process, a computational routine needs to find the minimum output value of this function. What is the minimum value that the routine should identify?',
     type: 'mcq',
     options: ['$\\dfrac{11}{3}$', '$\\dfrac{13}{3}$', '$\\dfrac{15}{3}$', '$\\dfrac{17}{3}$'],
-    points: 2
+    points: 2,
+    correctAnswer: '$\\dfrac{11}{3}$'
   },
   {
     _id: 'math_m2',
@@ -175,7 +191,8 @@ export const sampleQuestions = [
       '$w=\\dfrac{10}{3}$cm, $l=\\dfrac{35}{3}$cm',
       '$w=\\dfrac{25}{3}$cm, $l=\\dfrac{65}{3}$cm'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: '$w=\\dfrac{20}{3}$cm, $l=\\dfrac{55}{3}$cm'
   },
   // Mathematics Questions - Advanced
   {
@@ -188,7 +205,8 @@ export const sampleQuestions = [
       '$S_N = N(N+1)$',
       '$S_N = \\dfrac{N(N+1)}{2}$'
     ],
-    points: 3
+    points: 3,
+    correctAnswer: '$S_N = \\dfrac{N(N+1)}{2}$'
   },
   // Biology Questions - Easy
   {
@@ -202,7 +220,8 @@ export const sampleQuestions = [
       'Gene expression levels from RNA',
       'Protein vibration velocity'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: 'Gene expression levels from RNA'
   },
   {
     _id: 'bio_e2',
@@ -214,7 +233,8 @@ export const sampleQuestions = [
       'Test chemicals',
       'Show how species are related through evolution'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: 'Show how species are related through evolution'
   },
   {
     _id: 'bio_e3',
@@ -226,7 +246,8 @@ export const sampleQuestions = [
       'Vitamin B12',
       'Vitamin B6'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: 'Vitamin A'
   },
   // Biology Questions - Moderate
   {
@@ -239,7 +260,8 @@ export const sampleQuestions = [
       '125 cytosine and 125 thymine molecules',
       '250 adenine and 250 cytosine molecules'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: '125 thymine and 125 adenine molecules'
   },
   {
     _id: 'bio_m2',
@@ -251,7 +273,8 @@ export const sampleQuestions = [
       '1/250,000',
       '1/1,000'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: '1/250,000'
   },
   // Biology Questions - Advanced
   {
@@ -264,7 +287,8 @@ export const sampleQuestions = [
       '$\\text{CAI} = \\left( \\sum_{i=1}^{N} \\log w_i \\right)^2$',
       '$\\text{CAI} = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} w_i^2}$'
     ],
-    points: 3
+    points: 3,
+    correctAnswer: '$\\text{CAI} = \\prod_{i=1}^{N}{w_i^\\dfrac{1}{N}}$'
   },
   // Computer Science Questions - Easy
   {
@@ -289,7 +313,8 @@ export const sampleQuestions = [
       'Only counts',
       'Pivot chart'
     ],
-    points: 1
+    points: 1,
+    correctAnswer: 'Multi-index DataFrame of means & counts'
   },
   // Computer Science Questions - Moderate
   {
@@ -309,7 +334,8 @@ export const sampleQuestions = [
       'Train longer',
       'Switch optimizer'
     ],
-    points: 2
+    points: 2,
+    correctAnswer: 'Train longer'
   },
   // Computer Science Questions - Advanced
   {

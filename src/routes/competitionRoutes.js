@@ -426,14 +426,20 @@ router.get('/results', authenticateJWT, async (req, res) => {
         normalizedAnswer = question.options.includes(answerValue) ? answerValue : '';
       }
 
+      const isMcq = question.type === 'mcq';
+      const correct = question.correctAnswer || null;
+      const isCorrect = isMcq && correct !== null ? normalizedAnswer === correct : null;
+
       return {
         questionId: question._id,
         questionText: question.text,
         yourAnswer: normalizedAnswer,
+        correctAnswer: correct,
+        isCorrect,
         submittedAt: answer.submittedAt,
         type: question.type,
         points: question.points,
-        options: question.type === 'mcq' ? question.options : undefined
+        options: isMcq ? question.options : undefined
       };
     });
 
@@ -490,11 +496,36 @@ router.post('/finish', authenticateJWT, async (req, res) => {
       return res.status(404).json({ message: 'No active competition found' });
     }
     
-    // If answers array is provided, upsert all entries (answered + unanswered)
+    // Build a map of correct answers for grading
+    const correctMap = {};
+    const pointsMap = {};
+    const typeMap = {};
+    sampleQuestions.forEach(q => {
+      correctMap[q._id] = q.correctAnswer || null;
+      pointsMap[q._id] = q.points || 0;
+      typeMap[q._id] = q.type || 'mcq';
+    });
+    
+    // Grade answers and calculate score
+    let score = 0;
+    let totalPoints = 0;
+    const gradedAnswers = [];
+    
     if (Array.isArray(answers) && answers.length > 0) {
       for (const { questionId, answer } of answers) {
-        const answerIndex = participation.answers.findIndex(a => a.question === questionId);
         const answerValue = answer ?? '';
+        const isMcq = typeMap[questionId] === 'mcq';
+        const correct = correctMap[questionId];
+        const isCorrect = isMcq && correct !== null ? answerValue === correct : null;
+        const points = pointsMap[questionId] || 0;
+        
+        if (isCorrect) {
+          score += points;
+        }
+        totalPoints += points;
+        
+        // Upsert into participation.answers
+        const answerIndex = participation.answers.findIndex(a => a.question === questionId);
         if (answerIndex !== -1) {
           participation.answers[answerIndex].answer = answerValue;
           participation.answers[answerIndex].submittedAt = new Date();
@@ -505,6 +536,15 @@ router.post('/finish', authenticateJWT, async (req, res) => {
             submittedAt: new Date()
           });
         }
+        
+        gradedAnswers.push({
+          questionId,
+          answer: answerValue,
+          correctAnswer: correct,
+          isCorrect,
+          points,
+          type: typeMap[questionId]
+        });
       }
     }
     
@@ -512,11 +552,15 @@ router.post('/finish', authenticateJWT, async (req, res) => {
     participation.status = 'completed';
     participation.endTime = new Date();
     participation.notes = submissionMethod || 'normal';
+    participation.score = score;
     await participation.save();
     
     return res.json({ 
       message: 'Competition completed successfully',
-      endTime: participation.endTime
+      endTime: participation.endTime,
+      score,
+      totalPoints,
+      answers: gradedAnswers
     });
   } catch (error) {
     console.error('Error finishing competition:', error);
