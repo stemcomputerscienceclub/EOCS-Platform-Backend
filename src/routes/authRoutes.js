@@ -180,6 +180,10 @@ router.put('/resetpassword/:resettoken', async (req, res) => {
     });
   } catch (error) {
     console.error('Reset password error:', error);
+    if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map(e => e.message);
+      return res.status(400).json({ message: messages.join('. ') });
+    }
     res.status(500).json({ message: 'Error resetting password' });
   }
 });
